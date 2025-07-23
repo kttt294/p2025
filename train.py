@@ -47,15 +47,16 @@ def valid_action_mask(env):
     return mask
 
 def main():
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     env = ProconEnv(size=SIZE)
     num_actions = get_num_actions(SIZE)
-    agent = Agent(SIZE, num_actions, device='cpu')
+    agent = Agent(SIZE, num_actions, device=device)
     best_score = -float('inf')
     start_episode = 0
     # Load checkpoint nếu có
     if os.path.exists(CHECKPOINT_PATH):
         print(f"Loading checkpoint from {CHECKPOINT_PATH}...")
-        checkpoint = torch.load(CHECKPOINT_PATH, map_location='cpu')
+        checkpoint = torch.load(CHECKPOINT_PATH, map_location=device)
         agent.policy_net.load_state_dict(checkpoint['model_state_dict'])
         agent.target_net.load_state_dict(checkpoint['target_state_dict'])
         agent.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
