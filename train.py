@@ -48,6 +48,7 @@ def valid_action_mask(env):
 
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print("Using device:", device)
     env = ProconEnv(size=SIZE)
     num_actions = get_num_actions(SIZE)
     agent = Agent(SIZE, num_actions, device=device)
@@ -85,7 +86,7 @@ def main():
         if total_reward > best_score:
             best_score = total_reward
             agent.save(MODEL_PATH)
-        # Lưu checkpoint mỗi 100 episode (hoặc bạn có thể chỉnh lại tần suất)
+        # Lưu checkpoint mỗi 100 episode
         if episode % 100 == 0:
             checkpoint = {
                 'episode': episode,
