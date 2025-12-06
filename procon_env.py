@@ -2,12 +2,6 @@ import gymnasium as gym
 import numpy as np
 
 class ProconEnv(gym.Env):
-    """
-    Môi trường RL cho bài toán Procon 2025.
-    Observation: ma trận NxN các số nguyên.
-    Action: (x, y, n) - xoay vùng vuông n x n tại (x, y) 90 độ CW.
-    Reward: số cặp liền kề tăng lên sau mỗi bước.
-    """
     metadata = {"render.modes": ["human"]}
 
     def __init__(self, size=4, field=None):
@@ -83,4 +77,5 @@ class ProconEnv(gym.Env):
         return count // 2  # mỗi cặp đếm 2 lần
 
     def render(self):
+
         print(self.field) 
